@@ -1,0 +1,21 @@
+name: GDELT Download
+
+on:
+  workflow_dispatch:
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 运行 GDELT 下载
+        run: python3 gdelt_downloader.py
+
+      - name: 上传下载结果
+        uses: actions/upload-artifact@v4
+        with:
+          name: gdelt-results
+          path: gdelt_downloads/
